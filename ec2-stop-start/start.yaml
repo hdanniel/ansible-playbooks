@@ -1,0 +1,16 @@
+- hosts: ansible
+  connection: local
+  tasks:
+    - name: Start the instances
+      ec2:
+        instance_ids: '{{ item.id }}'
+        region: '{{ item.region }}'
+        profile: '{{ aws_profile }}'
+        state: running 
+        wait: True
+      with_items: "{{ nonprod_servers }}"
+      when: (item.tags is defined) and (env in item.tags)
+    - name: register with elb
+      command: aws elb register-instances-with-load-balancer --load-balancer-name "{{ item.elb }}" --instances "{{ item.id }}" --profile "{{ aws_profile }}" --region "{{ item.region }}"
+      with_items: "{{ nonprod_servers }}"
+      when: item.elb is defined and item.tags is defined and env in item.tags

@@ -1,0 +1,15 @@
+- hosts: aws
+  connection: local
+  tasks:
+    - name: Stop the instances
+      ec2:
+        instance_ids: '{{ item.id }}'
+        region: '{{ item.region }}'
+        profile: '{{ aws_profile }}'
+        state: stopped 
+        wait: True
+      with_items: "{{ nonprod_servers }}"
+    - name: deregister with elb
+      command: aws elb deregister-instances-from-load-balancer --load-balancer-name "{{ item.elb }}" --instances "{{ item.id }}" --profile "{{ aws_profile }}" --region "{{ item.region }}"
+      with_items: "{{ nonprod_servers }}"
+      when: item.elb is defined

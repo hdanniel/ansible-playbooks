@@ -1,0 +1,20 @@
+---
+aws_profile: cab 
+nonprod_servers:
+  -
+    id: i-xxxxxxxx
+    name: ec2-test-001 
+    region: us-east-1
+    elb: elb-test-001
+    tags: ['myapp','all']
+  -
+    id: i-yyyyyyyy
+    name: ec2-test-001 
+    region: us-east-1
+    elb: elb-test-001
+    tags: ['myapp','all']
+  -
+    id: i-zzzzzzzz
+    name: ec2-test-003
+    region: us-east-1
+    tags: ['mydb','all']
