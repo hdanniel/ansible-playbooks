@@ -1,5 +1,5 @@
 ---
-aws_profile: cab 
+aws_profile: AWSCLI_PROFILE 
 nonprod_servers:
   -
     id: i-xxxxxxxx
