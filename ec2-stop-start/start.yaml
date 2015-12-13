@@ -1,4 +1,4 @@
-- hosts: ansible
+- hosts: aws
   connection: local
   tasks:
     - name: Start the instances
